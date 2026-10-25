@@ -1,21 +1,22 @@
-// package main
+package main
 
-// import "fmt"
+import "fmt"
 
-// func send(chOut chan string) {
-// 	chOut <- "Mesaj de la send"
-// }
-// func receive(chIn chan string, chOut chan string) {
-// 	mesaj := <-chIn
-// 	chOut <- mesaj
-// }
+func send(chOut chan string) {
+	chOut <- "Mesaj de la send"
+}
 
-// func main() {
-// 	ch1 := make(chan string)
-// 	ch2 := make(chan string)
+func receive(chIn chan string, chOut chan string) {
+	mesaj := <-chIn
+	chOut <- mesaj
+}
 
-// 	send(ch1)
-// 	receive(ch1, ch2)
+func main() {
+	ch1 := make(chan string)
+	ch2 := make(chan string)
 
-// 	fmt.Println(<-ch2)
-// }
+	go send(ch1)
+	go receive(ch1, ch2)
+
+	fmt.Println(<-ch2)
+}
